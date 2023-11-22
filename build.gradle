@@ -1,6 +1,37 @@
+import com.devexperto.architectcoders.buildsrc.Libs
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+
+    ext {
+        Properties versionProps = new Properties()
+        versionProps.load(new FileInputStream(file('version.properties')))
+        version_name = versionProps['VERSION_NAME']
+        version_code = versionProps['VERSION_CODE'].toInteger()
+
+        compile_sdk_version = 33
+        min_sdk_version = 24
+        target_sdk_version = 33
+        versionSDKName = "1"
+    }
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath Libs.androidGradlePlugin
+        classpath Libs.Kotlin.gradlePlugin
+        classpath Libs.AndroidX.Navigation.gradlePlugin
+        classpath Libs.Hilt.gradlePlugin
+        classpath Libs.gradleVersionsPlugin
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10'
+    }
+}
+
 plugins {
-    id 'com.android.application' version '8.0.2' apply false
-    id 'com.android.library' version '8.0.2' apply false
-    id 'org.jetbrains.kotlin.android' version '1.7.20' apply false
+    id 'com.android.application' version '7.4.2' apply false
+    id 'com.android.library' version '7.4.2' apply false
+    id 'org.jetbrains.kotlin.android' version '1.8.21' apply false
+    id 'org.jetbrains.kotlin.jvm' version '1.8.21' apply false
 }
