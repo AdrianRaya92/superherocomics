@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Superhero Comics</string>
-    <string name="author">Adrián Raya Hernández</string>
+    <string name="author">Adrian Raya Hernandez</string>
+
+    <!-- Main Fragment -->
+    <string name="text_button_characters">Personajes</string>
+    <string name="text_button_comics">Comics</string>
+    <string name="text_button_location">Tiendas</string>
+
 </resources>
