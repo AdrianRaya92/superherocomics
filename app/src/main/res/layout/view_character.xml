@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.ayardreams.domain.MarvelCharacter" />
+
+        <variable
+            name="character"
+            type="com.ayardreams.domain.MarvelCharacter" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:foreground="?attr/selectableItemBackground"
+        android:orientation="vertical"
+        android:padding="2dp">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/character_cover"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:scaleType="centerCrop"
+                app:url="@{character.thumbnail}"
+                tools:src="@tools:sample/backgrounds/scenic"
+                tools:ignore="ContentDescription" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/character_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="?attr/colorPrimaryVariant"
+            android:gravity="center"
+            android:lines="2"
+            android:minLines="2"
+            android:padding="8dp"
+            android:text="@{character.name}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
+            tools:text="@tools:sample/lorem" />
+
+    </LinearLayout>
+</layout>

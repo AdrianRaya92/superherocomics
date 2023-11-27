@@ -14,3 +14,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Superhero Comics"
 include ':app'
+include ':domain'
+include ':data'
+include ':usecase'
+include ':testShared'

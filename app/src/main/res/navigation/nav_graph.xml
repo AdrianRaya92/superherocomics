@@ -10,5 +10,16 @@
         android:name="com.ayardreams.superherocomics.ui.main.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
+
+        <action
+            android:id="@+id/action_main_to_characters"
+            app:destination="@id/characters_dest" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/characters_dest"
+        android:name="com.ayardreams.superherocomics.ui.characters.CharactersFragment"
+        android:label="fragment_characters"
+        tools:layout="@layout/fragment_characters" >
     </fragment>
 </navigation>

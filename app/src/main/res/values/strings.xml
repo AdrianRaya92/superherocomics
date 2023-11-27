@@ -2,6 +2,11 @@
     <string name="app_name">Superhero Comics</string>
     <string name="author">Adrian Raya Hernandez</string>
 
+    <!-- Error -->
+    <string name="connectivity_error">Connectivity Error</string>
+    <string name="server_error">\"Server Error: \"</string>
+    <string name="unknown_error">\"Unknown Error: \"</string>
+
     <!-- Main Fragment -->
     <string name="text_button_characters">Personajes</string>
     <string name="text_button_comics">Comics</string>
