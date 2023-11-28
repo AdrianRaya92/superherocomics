@@ -34,19 +34,5 @@ class CharactersFragment : Fragment(R.layout.fragment_characters) {
         }
 
         viewModel.onUiReady()
-
-        binding.recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-
-                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-                val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
-                val totalItemCount = layoutManager.itemCount
-
-                if (lastVisibleItemPosition == totalItemCount - 1) {
-                    viewModel.loadMoreCharacters(totalItemCount)
-                }
-            }
-        })
     }
 }
