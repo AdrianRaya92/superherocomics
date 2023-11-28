@@ -6,15 +6,15 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface CharacterDao {
 
-    @Query("SELECT * FROM MarvelCharacter")
+    @Query("SELECT * FROM MarvelCharacter ORDER BY name ASC")
     fun getAll(): Flow<List<MarvelCharacter>>
 
     @Query("SELECT * FROM MarvelCharacter WHERE id = :id")
     fun findById(id: Int): Flow<MarvelCharacter>
 
     @Query("SELECT COUNT(id) FROM MarvelCharacter")
-    suspend fun movieCount(): Int
+    suspend fun marvelCharactersCount(): Int
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertMovies(movies: List<MarvelCharacter>)
+    suspend fun insertMarvelCharacters(marvelCharacters: List<MarvelCharacter>)
 }

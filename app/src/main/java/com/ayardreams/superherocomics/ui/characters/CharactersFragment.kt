@@ -16,7 +16,7 @@ class CharactersFragment : Fragment(R.layout.fragment_characters) {
     private val viewModel: CharactersViewModel by viewModels()
     private lateinit var characterState: CharacterState
     private val adapter = CharactersAdapter {
-        //characterState.onMovieClicked(it)
+        // characterState.onMovieClicked(it)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,5 +34,19 @@ class CharactersFragment : Fragment(R.layout.fragment_characters) {
         }
 
         viewModel.onUiReady()
+
+        binding.recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+                val totalItemCount = layoutManager.itemCount
+
+                if (lastVisibleItemPosition == totalItemCount - 1) {
+                    viewModel.loadMoreCharacters(totalItemCount)
+                }
+            }
+        })
     }
 }

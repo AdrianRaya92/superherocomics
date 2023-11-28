@@ -3,7 +3,6 @@ package com.ayardreams.superherocomics.ui.characters
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ayardreams.domain.Error
-import com.ayardreams.domain.MarvelApi
 import com.ayardreams.domain.MarvelCharacter
 import com.ayardreams.superherocomics.data.toError
 import com.ayardreams.usecase.GetCharactersUseCase
@@ -22,7 +21,7 @@ class CharactersViewModel @Inject constructor(
     getCharactersUseCase: GetCharactersUseCase,
     private val requestMarvelCharactersUseCase: RequestMarvelCharactersUseCase
 ) : ViewModel() {
-    private var offset = 0
+    private var isLoading = false
 
     private val _state = MutableStateFlow(UiState())
     val state: StateFlow<UiState> = _state.asStateFlow()
@@ -35,16 +34,34 @@ class CharactersViewModel @Inject constructor(
         }
     }
 
+    fun loadMoreCharacters(offset: Int) {
+        if (isLoading) {
+            return
+        }
+        viewModelScope.launch {
+            try {
+                isLoading = true
+                _state.value = _state.value.copy(loading = true)
+                val error = requestMarvelCharactersUseCase(offset)
+                _state.value = _state.value.copy(loading = false, error = error)
+            } catch (cause: Throwable) {
+                _state.update { it.copy(error = cause.toError()) }
+            } finally {
+                isLoading = false
+            }
+        }
+    }
+
     fun onUiReady() {
         viewModelScope.launch {
             _state.value = _state.value.copy(loading = true)
-            val error = requestMarvelCharactersUseCase(offset)
+            val error = requestMarvelCharactersUseCase(0)
             _state.value = _state.value.copy(loading = false, error = error)
         }
     }
 
     data class UiState(
-        var loading: Boolean = true,
+        var loading: Boolean = false,
         val marvelCharacters: List<MarvelCharacter>? = null,
         val error: Error? = null
     )

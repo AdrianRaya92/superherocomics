@@ -9,5 +9,5 @@ interface CharacterLocalDataSource {
 
     suspend fun isEmpty(): Boolean
     fun findById(id: Int): Flow<MarvelCharacter>
-    suspend fun save(movies: List<MarvelCharacter>): Error?
+    suspend fun save(marvelCharacters: List<MarvelCharacter>): Error?
 }

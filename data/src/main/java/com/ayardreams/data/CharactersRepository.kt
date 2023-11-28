@@ -16,11 +16,9 @@ class CharactersRepository @Inject constructor(
     fun findById(id: Int): Flow<MarvelCharacter> = localDataSource.findById(id)
 
     suspend fun requestMarvelCharacters(offset: Int): Error? {
-        if (localDataSource.isEmpty()) {
-            val movies = remoteDataSource.findMarvelCharacters(offset)
-            movies.fold(ifLeft = { return it }) {
-                localDataSource.save(it)
-            }
+        val marvelCharacters = remoteDataSource.findMarvelCharacters(offset)
+        marvelCharacters.fold(ifLeft = { return it }) {
+            localDataSource.save(it)
         }
         return null
     }

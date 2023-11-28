@@ -13,7 +13,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val binding = FragmentMainBinding.bind(view).apply {
+        FragmentMainBinding.bind(view).apply {
             btnCharacters.setOnClickListener { findNavController().navigate(R.id.action_main_to_characters) }
             btnComics.setOnClickListener { }
             btnShopLocation.setOnClickListener { }

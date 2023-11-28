@@ -14,12 +14,12 @@ class CharacterRoomDataSource @Inject constructor(private val characterDao: Char
 
     override val characters: Flow<List<MarvelCharacter>> = characterDao.getAll().map { it.toDomainModel() }
 
-    override suspend fun isEmpty(): Boolean = characterDao.movieCount() == 0
+    override suspend fun isEmpty(): Boolean = characterDao.marvelCharactersCount() == 0
 
     override fun findById(id: Int): Flow<MarvelCharacter> = characterDao.findById(id).map { it.toDomainModel() }
 
-    override suspend fun save(movies: List<MarvelCharacter>): Error? = tryCall {
-        characterDao.insertMovies(movies.fromDomainModel())
+    override suspend fun save(marvelCharacters: List<MarvelCharacter>): Error? = tryCall {
+        characterDao.insertMarvelCharacters(marvelCharacters.fromDomainModel())
     }.fold(
         ifLeft = { it },
         ifRight = { null }

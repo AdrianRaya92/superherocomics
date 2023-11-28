@@ -9,6 +9,11 @@
     <color name="colorTransparent">#00000000</color>
 
     <color name="colorBlack">#000000</color>
+    <color name="colorBlack87">#DE000000</color>
+    <color name="colorBlack60">#99000000</color>
+    <color name="colorBlack38">#61000000</color>
+    <color name="colorBlack12">#1F000000</color>
+
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlue">#003594</color>
     <color name="colorRed">#E60026</color>
