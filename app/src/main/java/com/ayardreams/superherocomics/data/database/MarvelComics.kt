@@ -4,11 +4,12 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class MarvelCharacter(
+data class MarvelComics(
     @PrimaryKey(autoGenerate = true) val id: Int,
-    val name: String,
-    val description: String,
+    val title: String,
+    val resume: String?,
     val modified: String,
-    val resourceURI: String,
-    val thumbnail: String
+    val pageCount: Int,
+    val thumbnail: String,
+    val currentDate: String
 )

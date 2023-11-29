@@ -5,11 +5,11 @@
 
     <data>
 
-        <import type="com.ayardreams.domain.MarvelCharacter" />
+        <import type="com.ayardreams.domain.MarvelComics" />
 
         <variable
-            name="character"
-            type="com.ayardreams.domain.MarvelCharacter" />
+            name="comics"
+            type="com.ayardreams.domain.MarvelComics" />
     </data>
 
     <LinearLayout
@@ -28,7 +28,7 @@
                 android:layout_width="128dp"
                 android:layout_height="128dp"
                 android:scaleType="centerCrop"
-                app:url="@{character.thumbnail}"
+                app:url="@{comics.thumbnail}"
                 tools:src="@tools:sample/backgrounds/scenic"
                 tools:ignore="ContentDescription" />
 
@@ -44,7 +44,7 @@
             android:lines="3"
             android:minLines="3"
             android:padding="3dp"
-            android:text="@{character.name}"
+            android:text="@{comics.title}"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
             tools:text="@tools:sample/lorem" />
 

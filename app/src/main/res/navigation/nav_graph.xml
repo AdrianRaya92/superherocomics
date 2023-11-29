@@ -19,8 +19,8 @@
 
     <fragment
         android:id="@+id/characters_dest"
-        android:name="com.ayardreams.superherocomics.ui.characters.CharactersFragment"
+        android:name="com.ayardreams.superherocomics.ui.characters.ComicsFragment"
         android:label="fragment_characters"
-        tools:layout="@layout/fragment_characters" >
+        tools:layout="@layout/fragment_comics" >
     </fragment>
 </navigation>

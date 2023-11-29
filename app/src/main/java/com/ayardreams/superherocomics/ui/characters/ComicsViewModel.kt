@@ -3,10 +3,10 @@ package com.ayardreams.superherocomics.ui.characters
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ayardreams.domain.Error
-import com.ayardreams.domain.MarvelCharacter
+import com.ayardreams.domain.MarvelComics
 import com.ayardreams.superherocomics.data.toError
-import com.ayardreams.usecase.GetCharactersUseCase
-import com.ayardreams.usecase.RequestMarvelCharactersUseCase
+import com.ayardreams.usecase.GetComicsUseCase
+import com.ayardreams.usecase.RequestMarvelComicsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,13 +14,16 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
-class CharactersViewModel @Inject constructor(
-    getCharactersUseCase: GetCharactersUseCase,
-    private val requestMarvelCharactersUseCase: RequestMarvelCharactersUseCase
+class ComicsViewModel @Inject constructor(
+    getComicsUseCase: GetComicsUseCase,
+    private val requestMarvelComicsUseCase: RequestMarvelComicsUseCase
 ) : ViewModel() {
+    private val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
     private var isLoading = false
 
     private val _state = MutableStateFlow(UiState())
@@ -28,9 +31,9 @@ class CharactersViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            getCharactersUseCase()
+            getComicsUseCase()
                 .catch { cause -> _state.update { it.copy(error = cause.toError()) } }
-                .collect { characters -> _state.update { UiState(marvelCharacters = characters) } }
+                .collect { comics -> _state.update { UiState(marvelComics = comics) } }
         }
     }
 
@@ -42,7 +45,11 @@ class CharactersViewModel @Inject constructor(
             try {
                 isLoading = true
                 _state.value = _state.value.copy(loading = true)
-                val error = requestMarvelCharactersUseCase(offset)
+                val error = requestMarvelComicsUseCase(
+                    getCurrentDateFormatted(),
+                    "${getDateSevenDaysAgoFormatted()},${getCurrentDateFormatted()}",
+                    offset
+                )
                 _state.value = _state.value.copy(loading = false, error = error)
             } catch (cause: Throwable) {
                 _state.update { it.copy(error = cause.toError()) }
@@ -55,14 +62,28 @@ class CharactersViewModel @Inject constructor(
     fun onUiReady() {
         viewModelScope.launch {
             _state.value = _state.value.copy(loading = true)
-            val error = requestMarvelCharactersUseCase(0)
+            val error = requestMarvelComicsUseCase(
+                getCurrentDateFormatted(),
+                "${getDateSevenDaysAgoFormatted()},${getCurrentDateFormatted()}",
+                0
+            )
             _state.value = _state.value.copy(loading = false, error = error)
         }
     }
 
+    private fun getCurrentDateFormatted(): String {
+        val currentDate = LocalDate.now()
+        return currentDate.format(dateFormatter)
+    }
+
+    private fun getDateSevenDaysAgoFormatted(): String {
+        val sevenDaysAgo = LocalDate.now().minusDays(7)
+        return sevenDaysAgo.format(dateFormatter)
+    }
+
     data class UiState(
         var loading: Boolean = false,
-        val marvelCharacters: List<MarvelCharacter>? = null,
+        val marvelComics: List<MarvelComics>? = null,
         val error: Error? = null
     )
 }

@@ -4,33 +4,33 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.navigation.fragment.findNavController
 import com.ayardreams.superherocomics.R
-import com.ayardreams.superherocomics.databinding.FragmentCharactersBinding
+import com.ayardreams.superherocomics.databinding.FragmentComicsBinding
 import com.ayardreams.superherocomics.ui.common.launchAndCollect
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CharactersFragment : Fragment(R.layout.fragment_characters) {
-    private val viewModel: CharactersViewModel by viewModels()
-    private lateinit var characterState: CharacterState
-    private val adapter = CharactersAdapter {
+class ComicsFragment : Fragment(R.layout.fragment_comics) {
+    private val viewModel: ComicsViewModel by viewModels()
+    private lateinit var comicsState: ComicsState
+    private val adapter = ComicsAdapter {
         // characterState.onMovieClicked(it)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        characterState = buildCharacterState()
+        comicsState = buildComicsState()
 
-        val binding = FragmentCharactersBinding.bind(view).apply {
+        val binding = FragmentComicsBinding.bind(view).apply {
             recycler.adapter = adapter
         }
-
+        //binding.toolbar.
+            //.setOnClickListener { findNavController().popBackStack() }
         viewLifecycleOwner.launchAndCollect(viewModel.state) {
             binding.loading = it.loading
-            binding.characters = it.marvelCharacters
-            binding.error = it.error?.let(characterState::errorToString)
+            binding.comics = it.marvelComics
+            binding.error = it.error?.let(comicsState::errorToString)
         }
 
         viewModel.onUiReady()

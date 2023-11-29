@@ -7,15 +7,15 @@
 
         <import type="java.util.List" />
         <import type="android.view.View" />
-        <import type="com.ayardreams.domain.MarvelCharacter" />
+        <import type="com.ayardreams.domain.MarvelComics" />
 
         <variable
             name="loading"
             type="boolean" />
 
         <variable
-            name="characters"
-            type="List&lt;MarvelCharacter>" />
+            name="comics"
+            type="List&lt;MarvelComics>" />
 
         <variable
             name="error"
@@ -28,12 +28,24 @@
         android:fitsSystemWindows="true"
         tools:context=".ui.main.MainFragment">
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:statusBarForeground="?attr/colorPrimaryVariant">
+
+        <include
+            layout="@layout/toolbar"
+            android:id="@+id/toolbar"/>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorBlack60"
-            app:items="@{characters}"
+            app:items="@{comics}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:spanCount="3"

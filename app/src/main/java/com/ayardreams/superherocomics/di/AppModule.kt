@@ -2,12 +2,12 @@ package com.ayardreams.superherocomics.di
 
 import android.app.Application
 import androidx.room.Room
-import com.ayardreams.data.datasource.CharacterLocalDataSource
-import com.ayardreams.data.datasource.CharacterRemoteDataSource
+import com.ayardreams.data.datasource.ComicsLocalDataSource
+import com.ayardreams.data.datasource.ComicsRemoteDataSource
 import com.ayardreams.domain.MarvelApi
-import com.ayardreams.superherocomics.data.database.CharacterDatabase
-import com.ayardreams.superherocomics.data.database.CharacterRoomDataSource
-import com.ayardreams.superherocomics.data.server.CharacterServerDataSource
+import com.ayardreams.superherocomics.data.database.ComicsDatabase
+import com.ayardreams.superherocomics.data.database.ComicsRoomDataSource
+import com.ayardreams.superherocomics.data.server.ComicsServerDataSource
 import com.ayardreams.superherocomics.data.server.MarvelService
 import dagger.Binds
 import dagger.Module
@@ -44,13 +44,13 @@ object AppModule {
     @Singleton
     fun provideDatabase(app: Application) = Room.databaseBuilder(
         app,
-        CharacterDatabase::class.java,
-        "character-db"
+        ComicsDatabase::class.java,
+        "comics-db"
     ).build()
 
     @Provides
     @Singleton
-    fun provideCharacterDao(db: CharacterDatabase) = db.characterDao()
+    fun provideCharacterDao(db: ComicsDatabase) = db.comicsDao()
 
     @Provides
     @Singleton
@@ -80,8 +80,8 @@ object AppModule {
 @InstallIn(SingletonComponent::class)
 abstract class AppDataModule {
     @Binds
-    abstract fun bindLocalDataSource(localDataSource: CharacterRoomDataSource): CharacterLocalDataSource
+    abstract fun bindLocalDataSource(localDataSource: ComicsRoomDataSource): ComicsLocalDataSource
 
     @Binds
-    abstract fun bindRemoteDataSource(remoteDataSource: CharacterServerDataSource): CharacterRemoteDataSource
+    abstract fun bindRemoteDataSource(remoteDataSource: ComicsServerDataSource): ComicsRemoteDataSource
 }

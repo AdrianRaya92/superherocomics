@@ -6,55 +6,128 @@ data class RemoteResult(
     val copyright: String,
     val attributionText: String,
     val staattributionHTMLtus: String,
-    val data: RemoteCharacterData,
+    val data: RemoteComicsData,
     val etag: String
 )
 
-data class RemoteCharacterData(
+data class RemoteComicsData(
     val offset: Int,
     val limit: Int,
     val total: Int,
     val count: Int,
-    val results: List<RemoteCharacterResult>
+    val results: List<RemoteComicsResult>
 )
 
-data class RemoteCharacterResult(
+data class RemoteComicsResult(
     val id: Int,
-    val name: String,
+    val digitalId: String,
+    val title: String,
+    val issueNumber: Double,
+    val variantDescription: String,
     val description: String,
     val modified: String,
+    val isbn: String,
+    val upc: String,
+    val diamondCode: String,
+    val ean: String,
+    val issn: String,
+    val format: String,
+    val pageCount: Int,
+    val textObject: RemoteComicsTextObjects,
     val resourceURI: String,
-    val urls: List<RemoteCharacterUrls>,
-    val thumbnail: RemoteCharacterThumbnail,
-    val comics: RemoteCharacterComics,
-    val stories: RemoteCharacterStories,
-    val events: RemoteCharacterEvents,
-    val series: RemoteCharacterSeries
+    val urls: List<RemoteComicsUrls>,
+    val series: RemoteComicsSeries,
+    val variants: List<RemoteComicsVariants>,
+    val collections: List<RemoteComicsCollections>,
+    val collectedIssues: List<RemoteComicsCollectedIssues>,
+    val dates: List<RemoteComicsDates>,
+    val prices: List<RemoteComicsPrices>,
+    val thumbnail: RemoteComicsThumbnail,
+    val images: List<RemoteComicsImages>,
+    val creators: RemoteComicsCreators,
+    val characters: RemoteComicsCharacter,
+    val stories: RemoteComicsStories,
+    val events: RemoteComicsEvents
 )
 
-data class RemoteCharacterUrls(
+data class RemoteComicsTextObjects(
+    val type: String,
+    val language: String,
+    val text: String
+)
+
+data class RemoteComicsUrls(
     val type: String,
     val url: String
 )
 
-data class RemoteCharacterThumbnail(
-    val path: String,
-    val extension: String
-)
-
-data class RemoteCharacterComics(
-    val available: Int,
-    val returned: Int,
-    val collectionURI: String,
-    val items: List<RemoteItemsComics>
-)
-
-data class RemoteItemsComics(
+data class RemoteComicsSeries(
     val resourceURI: String,
     val name: String
 )
 
-data class RemoteCharacterStories(
+data class RemoteComicsVariants(
+    val resourceURI: String,
+    val name: String
+)
+
+data class RemoteComicsCollections(
+    val resourceURI: String,
+    val name: String
+)
+
+data class RemoteComicsCollectedIssues(
+    val resourceURI: String,
+    val name: String
+)
+
+data class RemoteComicsDates(
+    val type: String,
+    val date: String
+)
+
+data class RemoteComicsPrices(
+    val type: String,
+    val price: Float
+)
+
+data class RemoteComicsThumbnail(
+    val path: String,
+    val extension: String
+)
+
+data class RemoteComicsImages(
+    val path: String,
+    val extension: String
+)
+
+data class RemoteComicsCreators(
+    val available: Int,
+    val returned: Int,
+    val collectionURI: String,
+    val items: List<RemoteItemsCreators>
+)
+
+data class RemoteItemsCreators(
+    val resourceURI: String,
+    val name: String,
+    val role: String
+)
+
+data class RemoteComicsCharacter(
+    val available: Int,
+    val returned: Int,
+    val collectionURI: String,
+    val items: List<RemoteItemsCharacters>
+)
+
+data class RemoteItemsCharacters(
+    val resourceURI: String,
+    val name: String,
+    val role: String
+)
+
+data class RemoteComicsStories(
     val available: Int,
     val returned: Int,
     val collectionURI: String,
@@ -67,7 +140,7 @@ data class RemoteItemsStories(
     val type: String
 )
 
-data class RemoteCharacterEvents(
+data class RemoteComicsEvents(
     val available: Int,
     val returned: Int,
     val collectionURI: String,
@@ -75,18 +148,6 @@ data class RemoteCharacterEvents(
 )
 
 data class RemoteItemsEvents(
-    val resourceURI: String,
-    val name: String
-)
-
-data class RemoteCharacterSeries(
-    val available: Int,
-    val returned: Int,
-    val collectionURI: String,
-    val items: List<RemoteItemsSeries>
-)
-
-data class RemoteItemsSeries(
     val resourceURI: String,
     val name: String
 )

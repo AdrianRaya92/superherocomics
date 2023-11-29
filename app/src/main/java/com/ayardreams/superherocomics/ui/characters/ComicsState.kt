@@ -5,11 +5,11 @@ import androidx.fragment.app.Fragment
 import com.ayardreams.domain.Error
 import com.ayardreams.superherocomics.R
 
-fun Fragment.buildCharacterState(
+fun Fragment.buildComicsState(
     context: Context = requireContext()
-) = CharacterState(context)
+) = ComicsState(context)
 
-class CharacterState(
+class ComicsState(
     private val context: Context
 ) {
 

@@ -11,7 +11,7 @@ buildscript {
         version_code = versionProps['VERSION_CODE'].toInteger()
 
         compile_sdk_version = 33
-        min_sdk_version = 24
+        min_sdk_version = 26
         target_sdk_version = 33
         versionSDKName = "1"
     }
