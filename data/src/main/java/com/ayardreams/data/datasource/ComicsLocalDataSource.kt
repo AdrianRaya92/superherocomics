@@ -9,6 +9,7 @@ interface ComicsLocalDataSource {
 
     suspend fun getFirstCurrentDate(): String
     suspend fun isEmpty(): Boolean
+    suspend fun getComicsTotal(): Int
     fun findById(id: Int): Flow<MarvelComics>
     suspend fun save(marvelComics: List<MarvelComics>): Error?
     suspend fun deleteAllComics()

@@ -1,4 +1,4 @@
-package com.ayardreams.superherocomics.ui.characters
+package com.ayardreams.superherocomics.ui.comics
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView

@@ -5,7 +5,7 @@ data class RemoteResult(
     val status: String,
     val copyright: String,
     val attributionText: String,
-    val staattributionHTMLtus: String,
+    val staattributionHTML: String,
     val data: RemoteComicsData,
     val etag: String
 )

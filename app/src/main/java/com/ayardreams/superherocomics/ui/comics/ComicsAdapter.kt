@@ -1,4 +1,4 @@
-package com.ayardreams.superherocomics.ui.characters
+package com.ayardreams.superherocomics.ui.comics
 
 import android.view.View
 import android.view.ViewGroup

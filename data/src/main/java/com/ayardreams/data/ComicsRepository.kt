@@ -15,6 +15,8 @@ class ComicsRepository @Inject constructor(
 
     fun findById(id: Int): Flow<MarvelComics> = localDataSource.findById(id)
 
+    suspend fun comicsTotal(): Int = localDataSource.getComicsTotal()
+
     suspend fun requestMarvelComics(currentDate: String, dateRange: String, offset: Int): Error? {
         if (localDataSource.isEmpty()) {
             val marvelComics = remoteDataSource.findMarvelComics(dateRange, offset)

@@ -1,4 +1,4 @@
-package com.ayardreams.superherocomics.ui.characters
+package com.ayardreams.superherocomics.ui.comics
 
 import android.os.Bundle
 import android.view.View
@@ -15,7 +15,7 @@ class ComicsFragment : Fragment(R.layout.fragment_comics) {
     private val viewModel: ComicsViewModel by viewModels()
     private lateinit var comicsState: ComicsState
     private val adapter = ComicsAdapter {
-        // characterState.onMovieClicked(it)
+        comicsState.onComicClicked(it)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -32,6 +32,7 @@ class ComicsFragment : Fragment(R.layout.fragment_comics) {
             binding.comics = it.marvelComics
             binding.error = it.error?.let(comicsState::errorToString)
             binding.dateComics = it.dateComics
+            binding.totalComics = it.totalComics
         }
         viewModel.onUiReady()
     }

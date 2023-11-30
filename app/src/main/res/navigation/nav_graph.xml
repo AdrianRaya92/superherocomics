@@ -19,8 +19,26 @@
 
     <fragment
         android:id="@+id/characters_dest"
-        android:name="com.ayardreams.superherocomics.ui.characters.ComicsFragment"
+        android:name="com.ayardreams.superherocomics.ui.comics.ComicsFragment"
         android:label="fragment_characters"
         tools:layout="@layout/fragment_comics" >
+        <action
+            android:id="@+id/action_main_to_detail"
+            app:destination="@id/comic_detail_dest"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/comic_detail_dest"
+        android:name="com.ayardreams.superherocomics.ui.detail.ComicDetailFragment"
+        android:label="fragment_comic_detail"
+        tools:layout="@layout/fragment_comic_detail" >
+        <argument
+            android:name="comicId"
+            app:argType="integer"
+            android:defaultValue="-1" />
     </fragment>
 </navigation>

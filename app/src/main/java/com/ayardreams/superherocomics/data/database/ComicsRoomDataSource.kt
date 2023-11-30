@@ -16,6 +16,8 @@ class ComicsRoomDataSource @Inject constructor(private val comicsDao: ComicsDao)
 
     override suspend fun isEmpty(): Boolean = comicsDao.marvelComicsCount() == 0
 
+    override suspend fun getComicsTotal(): Int = comicsDao.marvelComicsCount()
+
     override suspend fun getFirstCurrentDate(): String = comicsDao.getFirstCurrentDate() ?: ""
 
     override fun findById(id: Int): Flow<MarvelComics> = comicsDao.findById(id).map { it.toDomainModel() }

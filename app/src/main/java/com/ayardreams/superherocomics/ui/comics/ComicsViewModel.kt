@@ -1,10 +1,11 @@
-package com.ayardreams.superherocomics.ui.characters
+package com.ayardreams.superherocomics.ui.comics
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ayardreams.domain.Error
 import com.ayardreams.domain.MarvelComics
 import com.ayardreams.superherocomics.data.toError
+import com.ayardreams.usecase.GetComicsTotalUseCase
 import com.ayardreams.usecase.GetComicsUseCase
 import com.ayardreams.usecase.RequestMarvelComicsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,7 +13,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -22,7 +22,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ComicsViewModel @Inject constructor(
     private val getComicsUseCase: GetComicsUseCase,
-    private val requestMarvelComicsUseCase: RequestMarvelComicsUseCase
+    private val requestMarvelComicsUseCase: RequestMarvelComicsUseCase,
+    private val getComicsTotalUseCase: GetComicsTotalUseCase,
 ) : ViewModel() {
     private val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
@@ -49,7 +50,10 @@ class ComicsViewModel @Inject constructor(
                 0
             )
             if (error == null) {
-                _state.value = _state.value.copy(loading = false)
+                _state.value = _state.value.copy(
+                    loading = false,
+                    totalComics = getComicsTotalUseCase().toString()
+                )
             } else {
                 _state.value = _state.value.copy(loading = false, error = error)
             }
@@ -77,7 +81,7 @@ class ComicsViewModel @Inject constructor(
         var loading: Boolean = false,
         val marvelComics: List<MarvelComics>? = null,
         val error: Error? = null,
-        val totalComics: String = "",
+        val totalComics: String = "0",
         val dateComics: String = ""
     )
 }
