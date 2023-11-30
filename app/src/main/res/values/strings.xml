@@ -12,4 +12,9 @@
     <string name="text_button_comics">Comics</string>
     <string name="text_button_location">Tiendas</string>
 
+    <!-- Comics Fragment -->
+    <string name="title_toolbar_comics">Novedades Comics Marvel</string>
+    <string name="text_dates_news_comics">Fechas de Novedades</string>
+    <string name="text_total_comics">Comics</string>
+
 </resources>

@@ -25,14 +25,14 @@ class ComicsFragment : Fragment(R.layout.fragment_comics) {
         val binding = FragmentComicsBinding.bind(view).apply {
             recycler.adapter = adapter
         }
-        //binding.toolbar.
-            //.setOnClickListener { findNavController().popBackStack() }
+        binding.toolbar.btImage.setOnClickListener { findNavController().popBackStack() }
+        binding.toolbar.tvTitleToolbar.text = getString(R.string.title_toolbar_comics)
         viewLifecycleOwner.launchAndCollect(viewModel.state) {
             binding.loading = it.loading
             binding.comics = it.marvelComics
             binding.error = it.error?.let(comicsState::errorToString)
+            binding.dateComics = it.dateComics
         }
-
         viewModel.onUiReady()
     }
 }
