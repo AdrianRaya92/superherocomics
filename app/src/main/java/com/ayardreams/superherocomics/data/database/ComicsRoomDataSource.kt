@@ -42,6 +42,8 @@ private fun DbComics.toDomainModel(): MarvelComics =
         title,
         resume,
         modified,
+        issueNumber,
+        price,
         pageCount,
         thumbnail,
         currentDate
@@ -54,6 +56,8 @@ private fun MarvelComics.fromDomainModel(): DbComics = DbComics(
     title,
     resume,
     modified,
+    issueNumber,
+    price,
     pageCount,
     thumbnail,
     currentDate

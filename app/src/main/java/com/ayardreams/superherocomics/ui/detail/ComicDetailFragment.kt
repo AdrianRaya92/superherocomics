@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.ayardreams.superherocomics.R
 import com.ayardreams.superherocomics.databinding.FragmentComicDetailBinding
 import com.ayardreams.superherocomics.ui.common.launchAndCollect
@@ -18,13 +19,12 @@ class ComicDetailFragment : Fragment(R.layout.fragment_comic_detail) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentComicDetailBinding.bind(view)
 
-        binding.movieDetailToolbar.setNavigationOnClickListener {
-            requireActivity().onBackPressedDispatcher.onBackPressed()
-        }
+        binding.toolbar.btImage.setOnClickListener { findNavController().popBackStack() }
 
         viewLifecycleOwner.launchAndCollect(viewModel.state) { state ->
             if (state.comic != null) {
                 binding.comic = state.comic
+                binding.toolbar.tvTitleToolbar.text = state.comic.title
             }
         }
     }

@@ -17,4 +17,9 @@
     <string name="text_dates_news_comics">Fechas de Novedades</string>
     <string name="text_total_comics">Comics</string>
 
+    <!-- Comics Details Fragment -->
+    <string name="text_price_comic">Precio:</string>
+    <string name="text_number_page_comic">Páginas:</string>
+    <string name="text_issue_number_comic">Nº de emisión:</string>
+
 </resources>

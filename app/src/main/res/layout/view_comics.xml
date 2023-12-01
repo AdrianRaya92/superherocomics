@@ -26,7 +26,7 @@
             <ImageView
                 android:id="@+id/character_cover"
                 android:layout_width="128dp"
-                android:layout_height="128dp"
+                android:layout_height="190dp"
                 android:scaleType="centerCrop"
                 app:url="@{comics.thumbnail}"
                 tools:src="@tools:sample/backgrounds/scenic"

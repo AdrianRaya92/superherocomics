@@ -33,4 +33,16 @@
         <item name="android:textAllCaps">true</item>
     </style>
 
+    <!-- Description details text -->
+    <style name="details_marvel_text">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
+    <!-- Resume details text -->
+    <style name="resume_marvel_text">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">@dimen/text_size_20</item>
+    </style>
+
 </resources>

@@ -36,10 +36,12 @@ private fun RemoteComicsResult.toDomainModel(): MarvelComics =
     MarvelComics(
         id,
         title,
-        description,
+        description.ifEmpty { "No hay descripción disponible" },
         modified,
-        pageCount,
-        "${thumbnail.path}/standard_fantastic.${thumbnail.extension}".replace("http", "https"),
+        if (issueNumber != 0.0) issueNumber.toString() else "--",
+        if (prices[0].price != 0.0F) prices[0].price.toString() else "--",
+        pageCount.toString(),
+        "${thumbnail.path}.${thumbnail.extension}".replace("http", "https"),
         getCurrentDateFormatted()
     )
 
