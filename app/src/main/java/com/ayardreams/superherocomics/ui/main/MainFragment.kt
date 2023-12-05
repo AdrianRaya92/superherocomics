@@ -14,8 +14,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         FragmentMainBinding.bind(view).apply {
-            btnCharacters.setOnClickListener { findNavController().navigate(R.id.action_main_to_characters) }
-            btnComics.setOnClickListener { }
+            btnCharacters.setOnClickListener { findNavController().navigate(R.id.action_main_to_comics) }
+            btnComics.setOnClickListener {  findNavController().navigate(R.id.action_main_to_store) }
             btnShopLocation.setOnClickListener { }
         }
     }

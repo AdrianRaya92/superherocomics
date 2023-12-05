@@ -61,11 +61,16 @@ object Libs {
                 private const val version = "1.1.5"
                 const val junit = "androidx.test.ext:junit-ktx:$version"
             }
-            object Espresso{
-                private const val version="3.5.1"
+            object Espresso {
+                private const val version = "3.5.1"
                 const val contrib = "androidx.test.espresso:espresso-contrib:$version"
             }
         }
+    }
+
+    object QrCode {
+        const val zxingCore = "com.google.zxing:core:3.4.1"
+        const val zxingEmbedded = "com.journeyapps:zxing-android-embedded:4.2.0"
     }
 
     object Glide {

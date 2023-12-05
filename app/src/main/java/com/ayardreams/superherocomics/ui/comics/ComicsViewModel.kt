@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ComicsViewModel @Inject constructor(
-    private val getComicsUseCase: GetComicsUseCase,
+    getComicsUseCase: GetComicsUseCase,
     private val requestMarvelComicsUseCase: RequestMarvelComicsUseCase,
     private val getComicsTotalUseCase: GetComicsTotalUseCase,
 ) : ViewModel() {

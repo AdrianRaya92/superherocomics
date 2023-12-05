@@ -11,14 +11,16 @@
         android:name="com.ayardreams.superherocomics.ui.main.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
-
         <action
-            android:id="@+id/action_main_to_characters"
-            app:destination="@id/characters_dest" />
+            android:id="@+id/action_main_to_comics"
+            app:destination="@id/comics_dest" />
+        <action
+            android:id="@+id/action_main_to_store"
+            app:destination="@id/comic_store_dest" />
     </fragment>
 
     <fragment
-        android:id="@+id/characters_dest"
+        android:id="@+id/comics_dest"
         android:name="com.ayardreams.superherocomics.ui.comics.ComicsFragment"
         android:label="fragment_characters"
         tools:layout="@layout/fragment_comics" >
@@ -32,6 +34,17 @@
         android:name="com.ayardreams.superherocomics.ui.detail.ComicDetailFragment"
         android:label="fragment_comic_detail"
         tools:layout="@layout/fragment_comic_detail" >
+        <argument
+            android:name="comicId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/comic_store_dest"
+        android:name="com.ayardreams.superherocomics.ui.store.ComicStoreFragment"
+        android:label="fragment_comic_store"
+        tools:layout="@layout/fragment_comic_store" >
         <argument
             android:name="comicId"
             app:argType="integer"

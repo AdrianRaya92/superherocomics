@@ -67,6 +67,9 @@ dependencies {
 
     implementation Libs.playServicesLocation
 
+    implementation Libs.QrCode.zxingCore
+    implementation Libs.QrCode.zxingEmbedded
+
     implementation Libs.Glide.glide
     kapt Libs.Glide.compiler
 
