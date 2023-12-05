@@ -74,7 +74,7 @@ class ComicsViewModel @Inject constructor(
         val dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
         val currentDate = LocalDate.now().format(dateFormatter)
         val sevenDaysAgo = LocalDate.now().minusDays(7).format(dateFormatter)
-        return "$currentDate - $sevenDaysAgo"
+        return "$sevenDaysAgo - $currentDate"
     }
 
     data class UiState(
