@@ -33,7 +33,7 @@ class ComicDetailViewModel @Inject constructor(
         viewModelScope.launch {
             findComicUseCase(comicId)
                 .catch { cause -> _state.update { it.copy(error = cause.toError()) } }
-                .collect { movie -> _state.update { UiState(comic = movie) } }
+                .collect { comic -> _state.update { UiState(comic = comic) } }
         }
     }
 

@@ -45,7 +45,7 @@ object AppModule {
     fun provideDatabase(app: Application) = Room.databaseBuilder(
         app,
         ComicsDatabase::class.java,
-        "comics-db"
+        "marvels-comics-db"
     ).build()
 
     @Provides

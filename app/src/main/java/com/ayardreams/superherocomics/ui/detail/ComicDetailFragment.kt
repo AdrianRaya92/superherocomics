@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ComicDetailFragment : Fragment(R.layout.fragment_comic_detail) {
 
     private val viewModel: ComicDetailViewModel by viewModels()
-    private var dataQr: String? = null
+    private lateinit var dataQr: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -22,16 +22,18 @@ class ComicDetailFragment : Fragment(R.layout.fragment_comic_detail) {
 
         binding.toolbar.btImage.setOnClickListener { findNavController().popBackStack() }
         binding.btnGenerateQrCode.setOnClickListener {
-            if (dataQr != null) {
-                binding.qrCodeImageView.setImageBitmap(viewModel.generateQRCode(dataQr!!))
-            }
+            binding.qrCodeImageView.setImageBitmap(viewModel.generateQRCode(dataQr))
         }
 
         viewLifecycleOwner.launchAndCollect(viewModel.state) { state ->
             if (state.comic != null) {
                 binding.comic = state.comic
                 binding.toolbar.tvTitleToolbar.text = state.comic.title
-                dataQr = "${state.comic.title}: ${state.comic.thumbnail}: ${state.comic.price}"
+                dataQr =
+                    "${state.comic.title}: " +
+                    "${state.comic.resume}: " +
+                    "${state.comic.thumbnail}: " +
+                    state.comic.price
             }
         }
     }
