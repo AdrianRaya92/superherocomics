@@ -3,6 +3,7 @@ package com.ayardreams.data
 import com.ayardreams.data.datasource.ComicsLocalDataSource
 import com.ayardreams.data.datasource.ComicsRemoteDataSource
 import com.ayardreams.domain.Error
+import com.ayardreams.domain.MarvelApi
 import com.ayardreams.domain.MarvelComics
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -18,16 +19,21 @@ class ComicsRepository @Inject constructor(
     suspend fun comicsTotal(): Int = localDataSource.getComicsTotal()
 
     suspend fun requestMarvelComics(currentDate: String, dateRange: String, offset: Int): Error? {
-        if (localDataSource.isEmpty()) {
-            val marvelComics = remoteDataSource.findMarvelComics(dateRange, offset)
-            marvelComics.fold(ifLeft = { return it }) {
-                localDataSource.save(it)
+        val findComics = when {
+            localDataSource.isEmpty() -> true
+            offset % MarvelApi.limit == 0 && offset != 0 -> true
+            localDataSource.getFirstCurrentDate() != currentDate -> {
+                localDataSource.deleteAllComics()
+                true
             }
-        } else if (!localDataSource.isEmpty() && localDataSource.getFirstCurrentDate() != currentDate) {
-            localDataSource.deleteAllComics()
+            else -> false
+        }
+
+        if (findComics) {
             val marvelComics = remoteDataSource.findMarvelComics(dateRange, offset)
-            marvelComics.fold(ifLeft = { return it }) {
+            return marvelComics.fold(ifLeft = { it }) {
                 localDataSource.save(it)
+                null
             }
         }
         return null

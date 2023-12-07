@@ -3,6 +3,7 @@ package com.ayardreams.superherocomics.ui.comics
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ayardreams.domain.Error
+import com.ayardreams.domain.MarvelApi
 import com.ayardreams.domain.MarvelComics
 import com.ayardreams.superherocomics.data.toError
 import com.ayardreams.usecase.GetComicsTotalUseCase
@@ -40,23 +41,28 @@ class ComicsViewModel @Inject constructor(
 
     fun onUiReady() {
         viewModelScope.launch {
-            _state.value = _state.value.copy(
-                loading = true,
-                dateComics = getDateToolbar()
-            )
-            val error = requestMarvelComicsUseCase(
-                getCurrentDateFormatted(),
-                "${getDateSevenDaysAgoFormatted()},${getCurrentDateFormatted()}",
-                0
-            )
-            if (error == null) {
+            var offset = 0
+            do {
                 _state.value = _state.value.copy(
-                    loading = false,
-                    totalComics = getComicsTotalUseCase().toString()
+                    loading = true,
+                    dateComics = getDateToolbar()
                 )
-            } else {
-                _state.value = _state.value.copy(loading = false, error = error)
-            }
+                val error = requestMarvelComicsUseCase(
+                    getCurrentDateFormatted(),
+                    "${getDateSevenDaysAgoFormatted()},${getCurrentDateFormatted()}",
+                    offset
+                )
+                if (error == null) {
+                    _state.value = _state.value.copy(
+                        loading = false,
+                        totalComics = getComicsTotalUseCase().toString()
+                    )
+                    offset += MarvelApi.limit
+                } else {
+                    _state.value = _state.value.copy(loading = false, error = error)
+                    break
+                }
+            } while (getComicsTotalUseCase() % MarvelApi.limit == 0)
         }
     }
 
@@ -66,14 +72,14 @@ class ComicsViewModel @Inject constructor(
     }
 
     private fun getDateSevenDaysAgoFormatted(): String {
-        val sevenDaysAgo = LocalDate.now().minusDays(7)
+        val sevenDaysAgo = LocalDate.now().minusDays(MarvelApi.newsComicsDays)
         return sevenDaysAgo.format(dateFormatter)
     }
 
     private fun getDateToolbar(): String {
         val dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
         val currentDate = LocalDate.now().format(dateFormatter)
-        val sevenDaysAgo = LocalDate.now().minusDays(7).format(dateFormatter)
+        val sevenDaysAgo = LocalDate.now().minusDays(MarvelApi.newsComicsDays).format(dateFormatter)
         return "$sevenDaysAgo - $currentDate"
     }
 

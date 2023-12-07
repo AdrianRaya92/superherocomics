@@ -6,7 +6,7 @@ import retrofit2.http.Query
 interface MarvelService {
 
     @GET("v1/public/comics")
-    suspend fun listMarvelCharacters(
+    suspend fun listMarvelComics(
         @Query("apikey") apiKey: String,
         @Query("ts") ts: String,
         @Query("hash") hash: String,

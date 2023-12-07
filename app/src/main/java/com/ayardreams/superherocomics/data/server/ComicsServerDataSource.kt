@@ -17,13 +17,16 @@ class ComicsServerDataSource @Inject constructor(
     @ApiKey private val apiKey: String,
     @ApiTs private val apiTs: String,
     @ApiHash private val apiHash: String,
-    private val remoteService: MarvelService
+    private val remoteService: MarvelService,
 ) :
     ComicsRemoteDataSource {
 
-    override suspend fun findMarvelComics(dateRange: String, offset: Int): Either<Error, List<MarvelComics>> = tryCall {
+    override suspend fun findMarvelComics(
+        dateRange: String,
+        offset: Int,
+    ): Either<Error, List<MarvelComics>> = tryCall {
         remoteService
-            .listMarvelCharacters(apiKey, apiTs, apiHash, dateRange, MarvelApi.limit, offset)
+            .listMarvelComics(apiKey, apiTs, apiHash, dateRange, MarvelApi.limit, offset)
             .data.results
             .toDomainModel()
     }
