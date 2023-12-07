@@ -2,6 +2,9 @@
     <string name="app_name">Superhero Comics</string>
     <string name="author">Adrian Raya Hernandez</string>
 
+    <!-- Common -->
+    <string name="common_cancel">Cancelar</string>
+
     <!-- Error -->
     <string name="connectivity_error">Connectivity Error</string>
     <string name="server_error">\"Server Error: \"</string>
@@ -16,11 +19,16 @@
     <string name="title_toolbar_comics">Novedades Comics Marvel</string>
     <string name="text_dates_news_comics">Fechas de Novedades</string>
     <string name="text_total_comics">Comics</string>
+    <string name="text_alert_title_permission_storage">Permiso de Almacenamiento</string>
+    <string name="text_alert_message_permission_storage">Necesitas habilitar el permiso desde la configuración de la aplicación.</string>
+    <string name="text_alert_positive_button_permission_storage">Configuración</string>
 
     <!-- Comics Details Fragment -->
     <string name="text_price_comic">Precio:</string>
     <string name="text_number_page_comic">Páginas:</string>
     <string name="text_issue_number_comic">Nº de emisión:</string>
     <string name="text_generate_qr_button">Generar QR</string>
+    <string name="text_save_qr_button">Guardar QR</string>
+    <string name="text_save_qr_image">Imagen guardada con éxito en %s</string>
 
 </resources>
