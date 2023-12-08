@@ -1,5 +1,6 @@
 package com.ayardreams.superherocomics.ui.detail
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -31,7 +32,11 @@ class ComicDetailFragment : Fragment(R.layout.fragment_comic_detail) {
                 btnSaveQR.visibility = View.VISIBLE
             }
             btnSaveQR.setOnClickListener {
-                viewModel.saveImage(titleComic)
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                    viewModel.saveImage(titleComic)
+                } else {
+                    viewModel.saveImage(requireContext().contentResolver, titleComic)
+                }
                 btnSaveQR.visibility = View.GONE
             }
         }

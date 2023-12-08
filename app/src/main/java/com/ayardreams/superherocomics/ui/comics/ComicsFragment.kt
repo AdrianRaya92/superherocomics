@@ -2,6 +2,7 @@ package com.ayardreams.superherocomics.ui.comics
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
@@ -41,12 +42,16 @@ class ComicsFragment : Fragment(R.layout.fragment_comics) {
             binding.totalComics = it.totalComics
         }
 
-        comicsState.requestWriteExternalPermission { permission ->
-            if (permission) {
-                viewModel.onUiReady()
-            } else {
-                showGoToSettingsDialog()
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            comicsState.requestWriteExternalPermission { permission ->
+                if (permission) {
+                    viewModel.onUiReady()
+                } else {
+                    showGoToSettingsDialog()
+                }
             }
+        } else {
+            viewModel.onUiReady()
         }
     }
 

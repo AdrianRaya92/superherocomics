@@ -1,8 +1,11 @@
 package com.ayardreams.superherocomics.ui.detail
 
+import android.content.ContentResolver
+import android.content.ContentValues
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Environment
+import android.provider.MediaStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ayardreams.domain.Error
@@ -62,13 +65,38 @@ class ComicDetailViewModel @Inject constructor(
     fun saveImage(titleComic: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val fileName = "QR_${titleComic.replace(" ", "_")}_${System.currentTimeMillis()}.png"
+                val fileName = "QR_${titleComic.replace(" ", "_").take(30)}_${System.currentTimeMillis()}.png"
                 val storage = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
                 val file = File(storage, fileName)
                 FileOutputStream(file).use { out ->
                     imageBmp.compress(Bitmap.CompressFormat.PNG, 100, out)
                 }
                 _state.update { it.copy(qrSave = true, messageStorage = "$storage") }
+            } catch (e: IOException) {
+                _state.update { it.copy(error = e.toError()) }
+            }
+        }
+    }
+
+    fun saveImage(contentResolver: ContentResolver, titleComic: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val fileName = "QR_${titleComic.replace(" ", "_").take(30)}_${System.currentTimeMillis()}.png"
+
+                val values = ContentValues().apply {
+                    put(MediaStore.Images.Media.DISPLAY_NAME, fileName)
+                    put(MediaStore.Images.Media.MIME_TYPE, "image/png")
+                    put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+                }
+
+                val uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+
+                uri?.let { it ->
+                    contentResolver.openOutputStream(it).use { outputStream ->
+                        imageBmp.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+                    }
+                    _state.update { it.copy(qrSave = true, messageStorage = "Pictures/$fileName") }
+                } ?: throw IOException("Unable to create media store entry.")
             } catch (e: IOException) {
                 _state.update { it.copy(error = e.toError()) }
             }
