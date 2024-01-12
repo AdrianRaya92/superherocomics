@@ -12,8 +12,7 @@
 
     <!-- Main Fragment -->
     <string name="text_button_new_comics">Novedades Comics</string>
-    <string name="text_button_search_comics">Buscar Comics</string>
-    <string name="text_button_location">Tiendas</string>
+    <string name="text_button_search_comics">QR Comics</string>
 
     <!-- Comics Fragment -->
     <string name="title_toolbar_comics">Novedades Comics Marvel</string>
@@ -30,5 +29,16 @@
     <string name="text_generate_qr_button">Generar QR</string>
     <string name="text_save_qr_button">Guardar QR</string>
     <string name="text_save_qr_image">Imagen guardada con éxito en %s</string>
+
+    <!-- Comics Reader Fragment -->
+    <string name="title_toolbar_reader">QR Comics</string>
+    <string name="text_start_qr_reader">Usa el lector con los QR generados por la aplicación.</string>
+    <string name="text_reader_qr_button">Lector QR</string>
+    <string name="text_alert_title_permission_camera">Permiso Cámara</string>
+    <string name="text_alert_message_permission_camera">Necesitas habilitar el permiso desde la configuración de la aplicación.</string>
+    <string name="text_alert_positive_button_permission_camera">Configuración</string>
+    <string name="common_canceled_scan_qr">Lector QR Cancelado</string>
+    <string name="common_scan_qr">Lectora QR correcta</string>
+
 
 </resources>

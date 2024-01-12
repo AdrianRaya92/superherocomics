@@ -50,9 +50,12 @@ class ComicDetailFragment : Fragment(R.layout.fragment_comic_detail) {
                 binding.toolbar.tvTitleToolbar.text = state.comic.title
                 titleComic = state.comic.title
                 dataQr =
+                    "${getString(R.string.app_name)}: " +
                     "${state.comic.title}: " +
                     "${state.comic.resume}: " +
                     "${state.comic.thumbnail}: " +
+                    "${state.comic.pageCount}: " +
+                    "${state.comic.issueNumber}: " +
                     state.comic.price
             }
             if (state.qrSave) {

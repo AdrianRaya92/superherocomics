@@ -5,19 +5,19 @@
 
     <data>
 
-        <import type="com.ayardreams.domain.MarvelComics" />
+        <import type="com.ayardreams.domain.ReaderComics" />
 
         <variable
             name="comic"
-            type="com.ayardreams.domain.MarvelComics" />
+            type="com.ayardreams.domain.ReaderComics" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/lyReader"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorBlack12"
-        android:fitsSystemWindows="true"
-        tools:context=".ui.detail.DetailFragment">
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"
@@ -31,17 +31,24 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
             <LinearLayout
+                android:id="@+id/lyComicInformation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="@dimen/margin_16"
-                tools:ignore="UseCompoundDrawables">
+                android:visibility="gone"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <TextView
+                    android:id="@+id/title_comics_summary"
+                    style="@style/resume_marvel_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:padding="16dp"
+                    android:text="@{comic.title}"
+                    tools:text="Titulo Comic" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -117,25 +124,41 @@
                     android:importantForAccessibility="no" />
 
                 <Button
-                    android:id="@+id/btnGenerateQrCode"
+                    android:id="@+id/btnReaderQrCode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/text_size_16"
                     android:layout_gravity="center"
-                    android:text="@string/text_generate_qr_button"/>
-
-                <Button
-                    android:id="@+id/btnSaveQR"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/text_size_16"
-                    android:layout_gravity="center"
-                    android:visibility="gone"
-                    android:text="@string/text_save_qr_button"/>
+                    android:text="@string/text_reader_qr_button"/>
 
             </LinearLayout>
 
-        </androidx.core.widget.NestedScrollView>
+        <LinearLayout
+            android:id="@+id/lyStartReader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <TextView
+                android:id="@+id/tvStartReader"
+                style="@style/resume_marvel_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:padding="16dp"
+                android:text="@string/text_start_qr_reader" />
+
+            <Button
+                android:id="@+id/btnStartReader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/text_size_16"
+                android:layout_gravity="center"
+                android:text="@string/text_reader_qr_button"/>
+
+        </LinearLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -16,7 +16,7 @@
             app:destination="@id/comics_dest" />
         <action
             android:id="@+id/action_main_to_store"
-            app:destination="@id/comic_store_dest" />
+            app:destination="@id/comic_reader_dest" />
     </fragment>
 
     <fragment
@@ -41,13 +41,9 @@
     </fragment>
 
     <fragment
-        android:id="@+id/comic_store_dest"
-        android:name="com.ayardreams.superherocomics.ui.store.ComicStoreFragment"
+        android:id="@+id/comic_reader_dest"
+        android:name="com.ayardreams.superherocomics.ui.reader.ComicReaderFragment"
         android:label="fragment_comic_store"
-        tools:layout="@layout/fragment_comic_store" >
-        <argument
-            android:name="comicId"
-            app:argType="integer"
-            android:defaultValue="-1" />
+        tools:layout="@layout/fragment_comic_reader" >
     </fragment>
 </navigation>
