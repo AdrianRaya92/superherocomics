@@ -1,4 +1,4 @@
-import com.devexperto.architectcoders.buildsrc.Libs
+import com.ayardreams.superherocomics.buildsrc.Libs
 
 plugins {
     id 'com.android.application'
@@ -64,8 +64,6 @@ dependencies {
     implementation Libs.AndroidX.Room.runtime
     implementation Libs.AndroidX.Room.ktx
     kapt Libs.AndroidX.Room.compiler
-
-    implementation Libs.playServicesLocation
 
     implementation Libs.QrCode.zxingCore
     implementation Libs.QrCode.zxingEmbedded
