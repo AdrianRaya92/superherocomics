@@ -1,7 +1,6 @@
 package com.ayardreams.superherocomics.ui.reader
 
 import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
@@ -10,9 +9,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.ayardreams.domain.ReaderComics
 import com.ayardreams.superherocomics.R
 import com.ayardreams.superherocomics.data.alert
 import com.ayardreams.superherocomics.databinding.FragmentComicReaderBinding
+import com.ayardreams.superherocomics.ui.common.launchAndCollect
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.zxing.integration.android.IntentIntegrator
@@ -34,11 +35,16 @@ class ComicReaderFragment : Fragment(R.layout.fragment_comic_reader) {
         binding.toolbar.btImage.setOnClickListener { findNavController().popBackStack() }
         binding.toolbar.tvTitleToolbar.text = getString(R.string.title_toolbar_reader)
         binding.btnStartReader.setOnClickListener { initScanner() }
+        binding.btnReaderQrCode.setOnClickListener { initScanner() }
 
         comicsReaderState.requestCameraPermission { permission ->
             if (!permission) {
                 showGoToSettingsDialog()
             }
+        }
+
+        viewLifecycleOwner.launchAndCollect(viewModel.state) {
+            binding.comic = it.readerComics
         }
     }
 
@@ -49,7 +55,7 @@ class ComicReaderFragment : Fragment(R.layout.fragment_comic_reader) {
     private fun initScanner() {
         val integrator = IntentIntegrator.forSupportFragment(this)
         integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
-        integrator.setPrompt("ESCANEAR QR CODE SUPERHERO COMICS")
+        integrator.setPrompt("ESCANEAR QR SUPERHERO COMICS")
         integrator.setBeepEnabled(false)
         integrator.initiateScan()
     }
@@ -66,27 +72,31 @@ class ComicReaderFragment : Fragment(R.layout.fragment_comic_reader) {
                     )
                     .show()
             } else {
-                Snackbar
-                    .make(
-                        binding.lyReader,
-                        getString(R.string.common_scan_qr),
-                        BaseTransientBottomBar.LENGTH_LONG
+                if (result.formatName.equals("QR_CODE")
+                    && result.contents.startsWith(getString(R.string.app_name) + ";T:")) {
+                    viewModel.onUiReady(
+                        ReaderComics(
+                            result.contents.substringAfter(";T:").substringBefore(";R:"),
+                            result.contents.substringAfter(";R:").substringBefore(";N:"),
+                            result.contents.substringAfter(";N:").substringBefore(";P:"),
+                            result.contents.substringAfter(";P:").substringBefore(";C:"),
+                            result.contents.substringAfter(";C:").substringBefore(";I:"),
+                            result.contents.substringAfter(";I:").substringBefore(";")
+                        )
                     )
-                    .show()
-                if (result.formatName.equals("QR_CODE")) {
-                    binding.apply {
-                        /*ssidText = result.contents.substringAfter(";S:").substringBefore(";H:")
-                        etSSID.setText(ssidText)
-                        passwordText = result.contents.substringAfter(";P:").substringBefore(";S:")
-                        etPassword.setText(passwordText)
-                        securityModeText = result.contents.substringAfter("WIFI:T:").substringBefore(";P:")
-                         */
-                    }
+
+                    Snackbar
+                        .make(
+                            binding.lyReader,
+                            getString(R.string.common_scan_qr),
+                            BaseTransientBottomBar.LENGTH_LONG
+                        )
+                        .show()
                 } else {
                     Snackbar
                         .make(
                             binding.lyReader,
-                            getString(R.string.common_canceled_scan_qr),
+                            getString(R.string.common_error_scan_qr),
                             BaseTransientBottomBar.LENGTH_LONG
                         )
                         .show()

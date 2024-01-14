@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <import type="com.ayardreams.domain.ReaderComics" />
 
         <variable
@@ -31,14 +33,19 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-            <LinearLayout
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
                 android:id="@+id/lyComicInformation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="@dimen/margin_16"
-                android:visibility="gone"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                android:visibility="@{comic != null ? View.VISIBLE : View.GONE}"
+                tools:visibility="gone">
 
                 <TextView
                     android:id="@+id/title_comics_summary"
@@ -115,14 +122,6 @@
                     android:text="@{comic.resume}"
                     tools:text="Resumen Comic" />
 
-                <ImageView
-                    android:id="@+id/qrCodeImageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/text_size_16"
-                    android:layout_gravity="center"
-                    android:importantForAccessibility="no" />
-
                 <Button
                     android:id="@+id/btnReaderQrCode"
                     android:layout_width="wrap_content"
@@ -133,12 +132,15 @@
 
             </LinearLayout>
 
+        </androidx.core.widget.NestedScrollView>
+
         <LinearLayout
             android:id="@+id/lyStartReader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="center"
+            android:visibility="@{comic == null ? View.VISIBLE : View.GONE}"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <TextView

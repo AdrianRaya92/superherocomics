@@ -49,14 +49,13 @@ class ComicDetailFragment : Fragment(R.layout.fragment_comic_detail) {
                 binding.comic = state.comic
                 binding.toolbar.tvTitleToolbar.text = state.comic.title
                 titleComic = state.comic.title
-                dataQr =
-                    "${getString(R.string.app_name)}: " +
-                    "${state.comic.title}: " +
-                    "${state.comic.resume}: " +
-                    "${state.comic.thumbnail}: " +
-                    "${state.comic.pageCount}: " +
-                    "${state.comic.issueNumber}: " +
-                    state.comic.price
+                dataQr = "${getString(R.string.app_name)};" +
+                        "T:${state.comic.title};" +
+                        "R:${state.comic.resume};" +
+                        "N:${state.comic.issueNumber};" +
+                        "P:${state.comic.price};" +
+                        "C:${state.comic.pageCount};" +
+                        "I:${state.comic.thumbnail};"
             }
             if (state.qrSave) {
                 Toast.makeText(

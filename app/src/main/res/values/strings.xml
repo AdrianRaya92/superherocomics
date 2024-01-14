@@ -38,7 +38,8 @@
     <string name="text_alert_message_permission_camera">Necesitas habilitar el permiso desde la configuración de la aplicación.</string>
     <string name="text_alert_positive_button_permission_camera">Configuración</string>
     <string name="common_canceled_scan_qr">Lector QR Cancelado</string>
-    <string name="common_scan_qr">Lectora QR correcta</string>
+    <string name="common_error_scan_qr">QR Incorrecto</string>
+    <string name="common_scan_qr">QR Correcto</string>
 
 
 </resources>
