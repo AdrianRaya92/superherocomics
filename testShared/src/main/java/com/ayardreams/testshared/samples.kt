@@ -1,18 +1,25 @@
 package com.ayardreams.testshared
 
-/*
-val sampleMovie = Movie(
+import com.ayardreams.domain.MarvelComics
+import com.ayardreams.domain.ReaderComics
+
+val sampleComics = MarvelComics(
     0,
     "Title",
-    "Overview",
-    "01/01/2025",
-    "",
-    "",
-    "EN",
-    "Title",
-    5.0,
-    5.1,
-    false
+    "Resume",
+    "19/01/2024",
+    "3",
+    "19,99",
+    "120",
+    "url/image",
+    "01/01/2024"
 )
 
- */
+val sampleReaderComics = ReaderComics(
+    "Title",
+    "Resume",
+    "3",
+    "19,99",
+    "120",
+    "url/image"
+)

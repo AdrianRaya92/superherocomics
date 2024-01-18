@@ -2,18 +2,13 @@ package com.ayardreams.superherocomics.di
 
 import android.app.Application
 import androidx.room.Room
-import com.ayardreams.data.datasource.ComicsLocalDataSource
-import com.ayardreams.data.datasource.ComicsRemoteDataSource
 import com.ayardreams.domain.MarvelApi
 import com.ayardreams.superherocomics.data.database.ComicsDatabase
-import com.ayardreams.superherocomics.data.database.ComicsRoomDataSource
-import com.ayardreams.superherocomics.data.server.ComicsServerDataSource
 import com.ayardreams.superherocomics.data.server.MarvelService
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import dagger.hilt.testing.TestInstallIn
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -22,8 +17,11 @@ import retrofit2.create
 import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
-object AppModule {
+@TestInstallIn(
+    components = [SingletonComponent::class],
+    replaces = [AppModule::class]
+)
+object TestAppModule {
 
     @Provides
     @Singleton
@@ -42,10 +40,9 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(app: Application) = Room.databaseBuilder(
+    fun provideDatabase(app: Application) = Room.inMemoryDatabaseBuilder(
         app,
-        ComicsDatabase::class.java,
-        "marvels-comics-db"
+        ComicsDatabase::class.java
     ).build()
 
     @Provides
@@ -55,7 +52,7 @@ object AppModule {
     @Provides
     @Singleton
     @ApiUrl
-    fun provideApiUrl(): String = "https://gateway.marvel.com/"
+    fun provideApiUrl(): String = "http://localhost:8080"
 
     @Provides
     @Singleton
@@ -74,14 +71,4 @@ object AppModule {
             .build()
             .create()
     }
-}
-
-@Module
-@InstallIn(SingletonComponent::class)
-abstract class AppDataModule {
-    @Binds
-    abstract fun bindLocalDataSource(localDataSource: ComicsRoomDataSource): ComicsLocalDataSource
-
-    @Binds
-    abstract fun bindRemoteDataSource(remoteDataSource: ComicsServerDataSource): ComicsRemoteDataSource
 }
