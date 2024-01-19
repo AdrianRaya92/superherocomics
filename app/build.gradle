@@ -19,7 +19,7 @@ android {
         versionCode version_code
         versionName version_name
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.ayardreams.superherocomics.di.HiltTestRunner"
 
         setProperty("archivesBaseName", "Superhero-Comics-Android-v${versionName}(${versionCode})")
     }
