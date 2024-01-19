@@ -89,7 +89,8 @@ class ComicDetailViewModel @Inject constructor(
                     put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
                 }
 
-                val uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+                val uri =
+                    contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
 
                 uri?.let { it ->
                     contentResolver.openOutputStream(it).use { outputStream ->

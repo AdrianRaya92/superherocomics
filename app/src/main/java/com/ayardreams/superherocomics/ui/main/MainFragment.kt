@@ -15,7 +15,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         super.onViewCreated(view, savedInstanceState)
         FragmentMainBinding.bind(view).apply {
             btnNewComics.setOnClickListener { findNavController().navigate(R.id.action_main_to_comics) }
-            btnReaderComics.setOnClickListener { findNavController().navigate(R.id.action_main_to_store) }
+            btnReaderComics.setOnClickListener { findNavController().navigate(R.id.action_main_to_reader_qr) }
         }
     }
 }
